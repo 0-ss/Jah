@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website for Exam</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(270deg, #533299, #ff7e5f);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            text-align: center; /* Center text for the entire body */
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 48px; /* Larger font size for h1 */
+        }
+
+        h2 {
+            font-size: 36px; /* Larger font size for h2 */
+        }
+
+        p {
+            font-size: 24px; /* Larger font size for paragraph */
+        }
+
+        button {
+            width: 150px; /* Set a fixed width */
+            height: 50px; /* Set a fixed height */
+            font-size: 16px;
+            color: white;
+            background-color: #333;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 10px; /* Rounded corners */
+            transition: background-color 0.3s, transform 0.3s; /* Transition for background and transform */
+        }
+
+        button:hover {
+            background-color: #555; /* Change background color on hover */
+            transform: scale(1.05); /* Slightly increase size on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>I'm Learning</h1>
+    <p>I made this site to learn for the exam.</p>
+
+    <h2>Steps to learn</h2>
+    <ul>
+        <li>Chat with "ChatGPT"</li>
+        <li>Type more codes</li>
+        <li>Search more</li>
+    </ul>
+
+    <a href="path/to/your/file.txt" download>
+        <button>Download</button>
+    </a>
+
+</body>
+</html>
