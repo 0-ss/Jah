@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/jpg" href="images/Tree.jpg"> 
+    <link rel="icon" type="image/jpg" href="images/Tree.jpg">
     <title>NLHybrid NOT Improved</title>
- 
+
+    <!-- Add Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
+
     <style>
         body {
             margin: 0;
@@ -19,6 +22,7 @@
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
             overflow: hidden;
+            position: relative; /* Enable positioning for the body */
         }
 
         @keyframes gradient {
@@ -164,6 +168,17 @@
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
 
+        /* "Since 2018" styling with font */
+        .since-2018 {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 14px;
+            opacity: 0.5;
+            color: white;
+            font-family: 'Roboto Slab', serif; /* Custom font */
+        }
+
         @media (max-width: 480px) {
             h1 {
                 font-size: 32px;
@@ -182,6 +197,9 @@
             }
             #discord-button {
                 width: 120px;
+            }
+            .since-2018 {
+                font-size: 12px; /* Slightly smaller on mobile */
             }
         }
     </style>
@@ -213,6 +231,9 @@
         <img src="https://imgur.com/t4Avm2c.jpeg" alt="Discord Logo">
         Our Discord Server
     </button>
+
+    <!-- "Since 2018" element -->
+    <div class="since-2018">Since 2018</div>
 
     <script>
         let countdown = 15;
