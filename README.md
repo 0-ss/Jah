@@ -1,2 +1,2 @@
 # this website is beta, its useless
-# (*WARN*) Do not download your file, its your risk
+# (*WARN*) Do not download the file, its your own risk
