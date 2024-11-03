@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NLHybrid NOT Improved</title>
+    <link rel="icon" type="image/jpg" href="images/Tree.jpg">
     <style>
         body {
             margin: 0;
@@ -208,18 +209,25 @@
         let countdown = 15;
         const timerElement = document.getElementById('timer');
         const downloadButton = document.getElementById('download-button');
-
+    
         const interval = setInterval(function() {
             countdown--;
             timerElement.textContent = `${countdown} seconds remaining`;
-
+    
             if (countdown <= 0) {
                 clearInterval(interval);
                 downloadButton.style.display = 'block';
-                timerElement.textContent = '';
+                timerElement.textContent = 'Done';
             }
         }, 1000);
     </script>
+
+
+
+
+
+
+    
 
 </body>
 </html>
