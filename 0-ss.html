@@ -1,86 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beta</title>
     <style>
         body {
             margin: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Change to column layout */
             justify-content: center;
             align-items: center;
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             overflow: hidden;
-            background: linear-gradient(270deg, #6345a5, #070707);
+            background: linear-gradient(270deg, #6345a5, #531717);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
-            text-align: center; /* Center text for the entire body */
+            text-align: center;
+            position: relative;
         }
-
         @keyframes gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
+        .container {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 450px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         h1 {
-            font-size: 48px; /* Larger font size for h1 */
+            font-size: 48px;
+            margin-bottom: 20px;
         }
-
         h2 {
-            font-size: 36px; /* Larger font size for h2 */
+            font-size: 36px;
+            margin: 20px 0;
         }
-
         p {
-            font-size: 24px; /* Larger font size for paragraph */
+            font-size: 20px;
+            margin-bottom: 30px;
         }
-
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        li {
+            font-size: 18px;
+            margin: 10px 0;
+        }
         #download-button {
-            display: none; /* Hide the button initially */
-            width: 150px; /* Set a fixed width */
-            height: 50px; /* Set a fixed height */
-            font-size: 16px;
+            display: none; 
+            width: 200px; 
+            height: 50px; 
+            font-size: 18px;
             color: white;
-            background-color: #333;
+            background-color: #444;
             border: none;
             cursor: pointer;
+            border-radius: 10px; 
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             margin-top: 20px;
-            border-radius: 10px; /* Rounded corners */
-            transition: background-color 0.3s, transform 0.3s; /* Transition for background and transform */
         }
-
         #download-button:hover {
-            background-color: #555; /* Change background color on hover */
-            transform: scale(1.05); /* Slightly increase size on hover */
+            background-color: #555; 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
-
         #timer {
-            font-size: 17px; /* Timer font size */
-            margin-top: 40px; /* Increased spacing above the timer */
+            font-size: 20px; 
+            margin-top: 30px; 
+        }
+        #discord-button {
+            position: absolute; 
+            top: 20px; 
+            left: 20px; 
+            background-color: #454d69; 
+            border: none;
+            border-radius: 5px; 
+            width: 150px; 
+            height: 40px; 
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+            color: white;
+            font-weight: bold; 
+        }
+        #discord-button:hover {
+            transform: scale(1.05);
+        }
+        .car-image {
+            margin-bottom: 20px; /* Add some spacing below the image */
+        }
+        @media (max-width: 0px) {
+            h1 {
+                font-size: 36px;
+            }
+            h2 {
+                font-size: 28px;
+            }
+            p, li {
+                font-size: 16px;
+            }
+            #download-button {
+                width: 100%;
+            }
+            #discord-button {
+                width: 120px; 
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>NLHybird</h1>
-    <p>I made this site to hack.. i mean for somthing.</p>
+    <img class="tree-image" src="https://imgur.com/Jk6HHWN.jpeg" alt="posion tree" width="122" height="165">
 
-    <h2>Steps to download</h2>
-    <ul>
-        <li>Press "Download"</li>
-        <li>extrac the file</li>
-        <li>Search for key</li>
-    </ul>
+    <button id="discord-button" onclick="window.open('https://discord.gg/68vSY6p5')">
+        Our Discord Server
+    </button>
 
-    <div id="timer">15 seconds remaining</div>
-    <a id="download-link" href="https://raw.githubusercontent.com/0h98fw40h9w0j9i4ef0jiwefj9efw-jwefwe0fw/jmdfghtiogjerdmt0poigrejmop/main/NLHybrid.rar" download>
-        <button id="download-button">Download</button>
-    </a>
+    <div class="container">
+        <h1>NLHybrid</h1>
+        <p>I made this site to hack.. I mean for something.</p>
+
+        <h2>Steps to Download</h2>
+        <ul>
+            <li>Press "Download"</li>
+            <li>Extract the file</li>
+            <li>Search for the key</li>
+        </ul>
+
+        <div id="timer">15 seconds remaining</div>
+        <a id="download-link" href="https://raw.githubusercontent.com/0h98fw40h9w0j9i4ef0jiwefj9efw-jwefwe0fw/jmdfghtiogjerdmt0poigrejmop/main/NLHybrid.rar" download>
+            <button id="download-button">Download</button>
+        </a>
+    </div>
 
     <script>
-        let countdown = 15; // Set countdown timer
+        let countdown = 15;
         const timerElement = document.getElementById('timer');
         const downloadButton = document.getElementById('download-button');
 
@@ -90,10 +160,10 @@
 
             if (countdown <= 0) {
                 clearInterval(interval);
-                downloadButton.style.display = 'block'; // Show button
-                timerElement.textContent = ''; // Clear timer text
+                downloadButton.style.display = 'block';
+                timerElement.textContent = ''; 
             }
-        }, 1000); // Update every second
+        }, 1000);
     </script>
 
 </body>
