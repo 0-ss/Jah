@@ -42,7 +42,7 @@
             flex-direction: column;
             align-items: center;
             transform: translateY(50px);
-            animation: containerLoad 0.8s ease-out forwards;
+            animation: containerLoad 1.5s ease-out forwards; /* Increased duration */
         }
 
         @keyframes containerLoad {
@@ -168,17 +168,6 @@
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* "Since 2018" styling with font */
-        .since-2018 {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            font-size: 14px;
-            opacity: 0.5;
-            color: white;
-            font-family: 'Roboto Slab', serif; /* Custom font */
-        }
-
         @media (max-width: 480px) {
             h1 {
                 font-size: 32px;
@@ -198,9 +187,22 @@
             #discord-button {
                 width: 120px;
             }
-            .since-2018 {
-                font-size: 12px; /* Slightly smaller on mobile */
-            }
+        }
+
+        /* Style for the "Since 2018" text */
+        #since {
+            position: absolute;
+            bottom: 20px; /* Align it to the bottom */
+            left: 20px; /* Align it to the left */
+            font-family: 'Roboto Slab', serif; /* Change the font */
+            font-size: 14px; /* Adjust font size */
+            color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+            animation: fadeIn 2s ease forwards; /* Slower appearance */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -232,8 +234,7 @@
         Our Discord Server
     </button>
 
-    <!-- "Since 2018" element -->
-    <div class="since-2018">Since 2018</div>
+    <div id="since">Since 2018</div> <!-- Added "Since 2018" text -->
 
     <script>
         let countdown = 15;
