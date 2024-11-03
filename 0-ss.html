@@ -9,7 +9,7 @@
             margin: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column; /* Change to column layout */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white;
@@ -99,13 +99,18 @@
             color: white;
             font-weight: bold; 
         }
+        #discord-button img {
+            width: 36px; /* Adjust size of the logo */
+            height: auto;
+            margin-right: 5px; /* Space between logo and text */
+        }
         #discord-button:hover {
             transform: scale(1.05);
         }
-        .car-image {
-            margin-bottom: 20px; /* Add some spacing below the image */
+        .tree-image {
+            margin-bottom: 20px; 
         }
-        @media (max-width: 0px) {
+        @media (max-width: 480px) {
             h1 {
                 font-size: 36px;
             }
@@ -126,9 +131,10 @@
 </head>
 <body>
 
-    <img class="tree-image" src="https://imgur.com/Jk6HHWN.jpeg" alt="posion tree" width="122" height="165">
+    <img class="tree-image" src="https://imgur.com/Jk6HHWN.jpeg" alt="poison tree" width="122" height="165">
 
     <button id="discord-button" onclick="window.open('https://discord.gg/68vSY6p5')">
+        <img src="https://imgur.com/jeMgOWf.jpeg" alt="Discord Logo">
         Our Discord Server
     </button>
 
