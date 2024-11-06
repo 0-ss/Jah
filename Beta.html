@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="images/Tree.jpg">
+    <title>NLHybrid NOT Improved</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            background: linear-gradient(270deg, #6345a5, #531717);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; 
+            transform: translateY(0);
+            animation: containerLoad 1.5s ease-out forwards;
+        }
+
+        @keyframes containerLoad {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .tree-image {
+            margin-bottom: 20px;
+            width: 100px;
+            height: auto;
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 15px;
+            text-align: center;
+            animation: textPop 1s ease forwards;
+        }
+
+        @keyframes textPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h2 {
+            font-size: 28px;
+            margin: 20px 0;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        li {
+            font-size: 16px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        #download-button {
+            display: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: #444;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-top: 20px;
+            outline: none;
+            opacity: 0;
+            animation: fadeInPop 1s ease-out forwards;
+        }
+
+        @keyframes fadeInPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.7);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #download-button:hover {
+            background-color: #555;
+            transform: translateY(-3px);
+        }
+
+        #timer {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #progress-bar {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            height: 8px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        #progress-bar span {
+            display: block;
+            height: 100%;
+            width: 100%;
+            background-color: #703275;
+            animation: progress 15s linear forwards;
+        }
+
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        /* Discord and Projects Button Container */
+        .button-container {
+            display: flex;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        #discord-button, #projects-button {
+            background-color: #454d69;
+            border: none;
+            border-radius: 5px;
+            width: 150px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-right: 10px;
+        }
+
+        #discord-button img, #projects-button img {
+            width: 37px;
+            height: auto;
+            margin-right: 5px;
+        }
+
+        #discord-button:hover, #projects-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #since {
+            position: absolute;
+            bottom: 20px; 
+            left: 20px; 
+            font-family: 'Roboto Slab', serif; 
+            font-size: 14px; 
+            color: rgba(255, 255, 255, 0.7); 
+            animation: fadeIn 2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            #discord-button, #projects-button {
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img class="tree-image" src="https://imgur.com/Jk6HHWN.jpeg" alt="poison tree">
+
+        <h1>Arch</h1>
+        <p>I made this site to hack.. I mean for something.</p>
+
+        <h2>Steps to Download</h2>
+        <ul>
+            <li>Press "Download"</li>
+            <li>Extract the file</li>
+            <li>Search for the key (in-app)</li>
+        </ul>
+
+        <div id="timer">15 seconds remaining</div>
+        <div id="progress-bar"><span></span></div>
+
+        <a id="download-link" href="https://raw.githubusercontent.com/0h98fw40h9w0j9i4ef0jiwefj9efw-jwefwe0fw/jmdfghtiogjerdmt0poigrejmop/main/NLHybrid.rar" download>
+            <button id="download-button">Download</button>
+        </a>
+    </div>
+
+   
+    <div class="button-container">
+        <button id="discord-button" onclick="window.open('https://discord.gg/68vSY6p5')">
+            <img src="https://imgur.com/t4Avm2c.jpeg" alt="Discord Logo">
+            Our Discord Server
+        </button>
+
+        <button id="projects-button" onclick="window.location.href='projects.html'">
+            Projects
+        </button>
+    </div>
+
+    <div id="since">By Jah | Since 2016</div>
+
+    <script>
+        let countdown = 15;
+        const timerElement = document.getElementById('timer');
+        const downloadButton = document.getElementById('download-button');
+    
+        const interval = setInterval(function() {
+            countdown--;
+            timerElement.textContent = `${countdown} seconds remaining`;
+    
+            if (countdown <= 0) {
+                clearInterval(interval);
+                downloadButton.style.display = 'block';
+                downloadButton.style.animation = 'fadeInPop 1s ease-out forwards';
+                timerElement.textContent = 'Done';
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
