@@ -155,10 +155,15 @@
             to { width: 100%; }
         }
 
-        #discord-button {
+        /* Discord and Projects Button Container */
+        .button-container {
+            display: flex;
             position: absolute;
             top: 20px;
             left: 20px;
+        }
+
+        #discord-button, #projects-button {
             background-color: #454d69;
             border: none;
             border-radius: 5px;
@@ -171,38 +176,18 @@
             color: white;
             font-weight: bold;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-right: 10px;
         }
 
-        #discord-button img {
+        #discord-button img, #projects-button img {
             width: 37px;
             height: auto;
             margin-right: 5px;
         }
 
-        #discord-button:hover {
+        #discord-button:hover, #projects-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 32px;
-            }
-            h2 {
-                font-size: 24px;
-            }
-            p, li {
-                font-size: 14px;
-            }
-            .container {
-                padding: 20px;
-            }
-            #download-button {
-                width: 100%;
-            }
-            #discord-button {
-                width: 120px;
-            }
         }
 
         #since {
@@ -218,6 +203,12 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            #discord-button, #projects-button {
+                width: 120px;
+            }
         }
     </style>
 </head>
@@ -244,10 +235,17 @@
         </a>
     </div>
 
-    <button id="discord-button" onclick="window.open('https://discord.gg/68vSY6p5')">
-        <img src="https://imgur.com/t4Avm2c.jpeg" alt="Discord Logo">
-        Our Discord Server
-    </button>
+   
+    <div class="button-container">
+        <button id="discord-button" onclick="window.open('https://discord.gg/68vSY6p5')">
+            <img src="https://imgur.com/t4Avm2c.jpeg" alt="Discord Logo">
+            Our Discord Server
+        </button>
+
+        <button id="projects-button" onclick="window.location.href='projects.html'">
+            Projects
+        </button>
+    </div>
 
     <div id="since">By Jah | Since 2016</div>
 
