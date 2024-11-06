@@ -17,7 +17,7 @@
             align-items: center;
             font-family: 'Arial', sans-serif;
             color: white;
-            background: linear-gradient(270deg, #6345a5, #531717);
+            background: linear-gradient(270deg, #27344d, #304649);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
             overflow: hidden;
@@ -42,11 +42,18 @@
             justify-content: center; 
             transform: translateY(0);
             animation: containerLoad 1.5s ease-out forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         @keyframes containerLoad {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Hover animation effect */
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .tree-image {
@@ -179,7 +186,18 @@
             margin-right: 10px;
         }
 
-        #discord-button img, #projects-button img {
+        #discord-button {
+            background: linear-gradient(270deg, #7289DA, #23272A);
+            background-size: 200% 200%;
+            animation: moveBackground 0.7s linear infinite; /* Fast background movement */
+        }
+
+        @keyframes moveBackground {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        #discord-button img {
             width: 37px;
             height: auto;
             margin-right: 5px;
@@ -235,7 +253,6 @@
         </a>
     </div>
 
-   
     <div class="button-container">
         <button id="discord-button" onclick="window.open('https://discord.gg/68vSY6p5')">
             <img src="https://imgur.com/t4Avm2c.jpeg" alt="Discord Logo">
