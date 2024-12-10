@@ -2,7 +2,7 @@
 # (*WARN*) Do not download the files, its your own risk
 # About me: I love coding and making websites or applications
 # https://0-ss.github.io/Jah/Beta
-https://www.mediafire.com/file/lwmsox84cjp5ggo/dd99.rar/file
+https://www.mediafire.com/file/zhlsl6gbarcsxsn/dd99.rar/file
 
 
 
