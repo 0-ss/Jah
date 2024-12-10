@@ -1,9 +1,5 @@
 # this website is beta, its useless
-<<<<<<< HEAD
-# (*WARN*) Do not download the file, its your own risk
-=======
 # (*WARN*) Do not download the files, its your own risk
->>>>>>> 1781307a56d296b045e630d52f94771e8360dfc4
 # About me: I love coding and making websites or applications
 # https://0-ss.github.io/Jah/Beta
 
