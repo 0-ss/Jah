@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="images/Tree.jpg">
+    <title>SharkV3</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            color: white;
+        }
+
+        /* Video as background */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes containerLoad {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .tree-image {
+            margin-bottom: 20px;
+            width: 100px;
+            height: auto;
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 15px;
+            text-align: center;
+            animation: textPop 1s ease forwards;
+        }
+
+        @keyframes textPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h2 {
+            font-size: 28px;
+            margin: 20px 0;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        li {
+            font-size: 16px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        /* Updated Staggered Buttons */
+        .staggered-button {
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .staggered-button img {
+            width: 50px; /* Adjust image size */
+            height: auto;
+            transition: transform 0.2s ease; /* Smooth transition for hover */
+        }
+
+        /* Hover Animation */
+        .staggered-button:hover img {
+            transform: scale(1.1); /* Scale the image by 10% */
+        }
+
+        .button-container {
+            display: flex;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        #discord-button, #projects-button {
+            background-color: #454d69;
+            border: none;
+            border-radius: 5px;
+            width: 150px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-right: 10px;
+        }
+
+        #discord-button {
+            background: linear-gradient(270deg, #7289DA, #23272A);
+            background-size: 200% 200%;
+            animation: moveBackground 0.7s linear infinite; 
+        }
+
+        @keyframes moveBackground {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        #discord-button img {
+            width: 37px;
+            height: auto;
+            margin-right: 5px;
+        }
+
+        #discord-button:hover, #projects-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #since {
+            position: absolute;
+            bottom: 20px; 
+            left: 20px; 
+            font-family: 'Roboto Slab', serif; 
+            font-size: 14px; 
+            color: rgba(255, 255, 255, 0.7); 
+            animation: fadeIn 2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            #discord-button, #projects-button {
+                width: 120px;
+            }
+        }
+
+        /* New Container for Staggered Buttons */
+        .staggered-buttons-container {
+            display: flex;
+            gap: 20px; /* Increased space between buttons */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img class="tree-image" src="https://imgur.com/Jk6HHWN.jpeg" alt="poison tree">
+
+        <h1>SharkV3</h1>
+        <p>--SharkV3 executor - Click at the shark logo--</p>
+
+        <div class="staggered-buttons-container">
+            <button id="button1" class="staggered-button" onclick="window.open('https://mega.nz/file/CbhmVDhC#iLDMHJnhkZCMjUDfuh87WtHq4bBUQlXQOWyblZfZwsM', '_blank')">
+                <img src="images/png-fierce-formidable-anime-shark-boy-with-sharp-teeth-creative-chibi-sticker-collection_1020495-340376.png" alt="Icon 1">
+            </button>
+            <button id="button2" class="staggered-button" onclick="window.open('https://www.youtube.com/@cu7z', '_blank')">
+                <img src="images/youtube logo (4).png" alt="Icon 2">
+            </button>
+            <button id="button3" class="staggered-button" onclick="window.open('https://www.tiktok.com/@MS4wLjABAAAAJ7xmRRmoez12d5P7k5Q5ZrA5hOjy_4-D-Ln27uNY_padB6WrF292gLUqhsfGpvKO?i', '_blank')">
+                <img src="images/Social-media_Tiktok-512.png" alt="Icon 3">
+            </button>
+            <button id="button4" class="staggered-button" onclick="window.open('https://link4.com', '_blank')">
+                <img src="https://imgur.com/t4Avm2c.jpeg" alt="Icon 4">
+            </button>
+        </div>
+    </div>
+
+   
+
+   
+    </div>
+
+    <div id="since">By Jah | Since 2022</div>
+
+    <script>
+        // Enable buttons with a staggered delay
+        const button1 = document.getElementById('button1');
+        const button2 = document.getElementById('button2');
+        const button3 = document.getElementById('button3');
+        const button4 = document.getElementById('button4');
+
+        setTimeout(() => {
+            button1.disabled = false;
+            button1.style.opacity = 1;
+            button1.style.transform = 'translateY(0)';
+        }, 1000); // 1 second
+
+        setTimeout(() => {
+            button2.disabled = false;
+            button2.style.opacity = 1;
+            button2.style.transform = 'translateY(0)';
+        }, 2000); // 2 seconds
+
+        setTimeout(() => {
+            button3.disabled = false;
+            button3.style.opacity = 1;
+            button3.style.transform = 'translateY(0)';
+        }, 3000); // 3 seconds
+
+        setTimeout(() => {
+            button4.disabled = false;
+            button4.style.opacity = 1;
+            button4.style.transform = 'translateY(0)';
+        }, 4000); // 4 seconds
+
+ 
+    </script>
+
+    <audio id="audioPlayer" autoplay>
+        <source src="audio/a carlo.MP3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        var audio = document.getElementById("audioPlayer");
+        audio.addEventListener("loadeddata", function() {
+            audio.volume = 0.50; // Set volume to 50%
+            console.log("Volume set to:", audio.volume);
+        });
+    </script>
+
+    <video autoplay loop muted playsinline id="bg-video">
+        <source src="video/286ca23ca16fbe6892031a59cd00747a (online-video-cutter.com).mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <style>
+        body {
+            cursor: url('images/276a370e-b5c1-41e4-be88-a429344b6f01.png'), auto;
+        }
+    </style>
+</body>
+</html>
