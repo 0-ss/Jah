@@ -1,4 +1,3 @@
-# this website is beta, its useless
-# (*WARN*) Do not download the files, its your own risk
-# About me: I love coding and making websites or applications
+# this website is beta, for sharkv3 executor (Roblox)
+# About me: I love coding and making websites & applications
 # https://0-ss.github.io/Jah/Beta
