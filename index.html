@@ -46,6 +46,7 @@
             position: relative;
             z-index: 1;
         }
+
         @keyframes containerLoad {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -88,18 +89,6 @@
             margin-bottom: 20px;
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-
-        li {
-            font-size: 16px;
-            margin: 10px 0;
-            text-align: center;
-        }
-
         /* Updated Staggered Buttons */
         .staggered-button {
             padding: 0;
@@ -112,68 +101,28 @@
         }
 
         .staggered-button img {
-            width: 50px; /* Adjust image size */
+            width: 50px;
             height: auto;
-            transition: transform 0.2s ease; /* Smooth transition for hover */
+            transition: transform 0.2s ease;
         }
 
-        /* Hover Animation */
         .staggered-button:hover img {
-            transform: scale(1.1); /* Scale the image by 10% */
+            transform: scale(1.1);
         }
 
-        .button-container {
+        /* New Container for Staggered Buttons */
+        .staggered-buttons-container {
             display: flex;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-
-        #discord-button, #projects-button {
-            background-color: #454d69;
-            border: none;
-            border-radius: 5px;
-            width: 150px;
-            height: 40px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            margin-right: 10px;
-        }
-
-        #discord-button {
-            background: linear-gradient(270deg, #7289DA, #23272A);
-            background-size: 200% 200%;
-            animation: moveBackground 0.7s linear infinite; 
-        }
-
-        @keyframes moveBackground {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        #discord-button img {
-            width: 37px;
-            height: auto;
-            margin-right: 5px;
-        }
-
-        #discord-button:hover, #projects-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            gap: 20px;
         }
 
         #since {
             position: absolute;
-            bottom: 20px; 
-            left: 20px; 
-            font-family: 'Roboto Slab', serif; 
-            font-size: 14px; 
-            color: rgba(255, 255, 255, 0.7); 
+            bottom: 20px;
+            left: 20px;
+            font-family: 'Roboto Slab', serif;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
             animation: fadeIn 2s ease forwards;
         }
 
@@ -186,12 +135,6 @@
             #discord-button, #projects-button {
                 width: 120px;
             }
-        }
-
-        /* New Container for Staggered Buttons */
-        .staggered-buttons-container {
-            display: flex;
-            gap: 20px; /* Increased space between buttons */
         }
     </style>
 </head>
@@ -219,57 +162,41 @@
         </div>
     </div>
 
-   
-
-   
-    </div>
-
     <div id="since">By Jah | Since 2022</div>
 
-    <script>
-        // Enable buttons with a staggered delay
-        const button1 = document.getElementById('button1');
-        const button2 = document.getElementById('button2');
-        const button3 = document.getElementById('button3');
-        const button4 = document.getElementById('button4');
-
-        setTimeout(() => {
-            button1.disabled = false;
-            button1.style.opacity = 1;
-            button1.style.transform = 'translateY(0)';
-        }, 1000); // 1 second
-
-        setTimeout(() => {
-            button2.disabled = false;
-            button2.style.opacity = 1;
-            button2.style.transform = 'translateY(0)';
-        }, 2000); // 2 seconds
-
-        setTimeout(() => {
-            button3.disabled = false;
-            button3.style.opacity = 1;
-            button3.style.transform = 'translateY(0)';
-        }, 3000); // 3 seconds
-
-        setTimeout(() => {
-            button4.disabled = false;
-            button4.style.opacity = 1;
-            button4.style.transform = 'translateY(0)';
-        }, 4000); // 4 seconds
-
- 
-    </script>
-
-    <audio id="audioPlayer" autoplay>
+    <audio id="audioPlayer">
         <source src="audio/a carlo.MP3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
     <script>
-        var audio = document.getElementById("audioPlayer");
-        audio.addEventListener("loadeddata", function() {
-            audio.volume = 0.50; // Set volume to 50%
-            console.log("Volume set to:", audio.volume);
+        // Staggered Button Animation
+        const buttons = document.querySelectorAll('.staggered-button');
+        buttons.forEach((button, index) => {
+            setTimeout(() => {
+                button.style.opacity = 1;
+                button.style.transform = 'translateY(0)';
+            }, (index + 1) * 1000);
+        });
+
+        // Enable Audio on User Interaction
+        function enableAudio() {
+            const audio = document.getElementById('audioPlayer');
+            audio.play().catch(error => console.log("Audio play blocked:", error));
+            // Remove event listeners after the first interaction
+            document.removeEventListener('click', enableAudio);
+            document.removeEventListener('mousemove', enableAudio);
+            document.removeEventListener('keydown', enableAudio);
+        }
+
+        document.addEventListener('click', enableAudio, { once: true });
+        document.addEventListener('mousemove', enableAudio, { once: true });
+        document.addEventListener('keydown', enableAudio, { once: true });
+
+        // Set volume once audio is loaded
+        document.getElementById("audioPlayer").addEventListener("loadeddata", function() {
+            this.volume = 0.50;
+            console.log("Volume set to:", this.volume);
         });
     </script>
 
@@ -283,5 +210,6 @@
             cursor: url('images/276a370e-b5c1-41e4-be88-a429344b6f01.png'), auto;
         }
     </style>
+
 </body>
 </html>
