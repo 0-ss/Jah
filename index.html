@@ -301,6 +301,10 @@
     </audio>
 
     <script>
+        document.getElementById('audioPlayer').volume = 0.2;  // Sets the volume to 20%
+    </script>
+
+    <script>
         const audio = document.getElementById("audioPlayer");
         const video = document.getElementById("bg-video");
 
@@ -330,6 +334,8 @@
                 }, (index + 1) * 1000); // Delays of 1s, 2s, 3s, 4s
             });
         }
+
+        
     </script>
 
     <video autoplay loop muted playsinline id="bg-video">
