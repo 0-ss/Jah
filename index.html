@@ -31,6 +31,38 @@
             z-index: -1;
         }
 
+        /* Blurred overlay */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* Text in the center of the overlay */
+        #overlay h2 {
+            font-size: 30px;
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        #overlay h2:hover {
+            transform: scale(1.1);
+        }
+
         .container {
             background: rgba(0, 0, 0, 0.7);
             border-radius: 15px;
@@ -46,6 +78,7 @@
             position: relative;
             z-index: 1;
         }
+
         @keyframes containerLoad {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -197,6 +230,11 @@
 </head>
 <body>
 
+    <!-- Blurred Overlay -->
+    <div id="overlay" onclick="enterSite()">
+        <h2>Click to enter...</h2>
+    </div>
+
     <div class="container">
         <img class="tree-image" src="https://imgur.com/Jk6HHWN.jpeg" alt="poison tree">
 
@@ -219,14 +257,13 @@
         </div>
     </div>
 
-   
-
-   
-    </div>
-
     <div id="since">By Jah | Since 2022</div>
 
     <script>
+        function enterSite() {
+            document.getElementById('overlay').style.display = 'none'; // Hide the overlay on click
+        }
+
         // Enable buttons with a staggered delay
         const button1 = document.getElementById('button1');
         const button2 = document.getElementById('button2');
@@ -256,34 +293,32 @@
             button4.style.opacity = 1;
             button4.style.transform = 'translateY(0)';
         }, 4000); // 4 seconds
-
- 
     </script>
 
-<audio id="audioPlayer">
-    <source src="audio/a carlo.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-</audio>
+    <audio id="audioPlayer">
+        <source src="audio/a carlo.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
 
-<script>
-    const audio = document.getElementById("audioPlayer");
+    <script>
+        const audio = document.getElementById("audioPlayer");
 
-    function tryToPlayAudio() {
-        audio.volume = 0.5;
-        audio.play().then(() => {
-            console.log("Audio playback started!");
-            document.removeEventListener("mousemove", tryToPlayAudio);
-            document.removeEventListener("keydown", tryToPlayAudio);
-            document.removeEventListener("touchstart", tryToPlayAudio);
-        }).catch(error => {
-            console.log("Audio autoplay blocked:", error);
-        });
-    }
+        function tryToPlayAudio() {
+            audio.volume = 0.5;
+            audio.play().then(() => {
+                console.log("Audio playback started!");
+                document.removeEventListener("mousemove", tryToPlayAudio);
+                document.removeEventListener("keydown", tryToPlayAudio);
+                document.removeEventListener("touchstart", tryToPlayAudio);
+            }).catch(error => {
+                console.log("Audio autoplay blocked:", error);
+            });
+        }
 
-    document.addEventListener("mousemove", tryToPlayAudio);
-    document.addEventListener("keydown", tryToPlayAudio);
-    document.addEventListener("touchstart", tryToPlayAudio);
-</script>
+        document.addEventListener("mousemove", tryToPlayAudio);
+        document.addEventListener("keydown", tryToPlayAudio);
+        document.addEventListener("touchstart", tryToPlayAudio);
+    </script>
 
     <video autoplay loop muted playsinline id="bg-video">
         <source src="video/286ca23ca16fbe6892031a59cd00747a (online-video-cutter.com).mp4" type="video/mp4">
