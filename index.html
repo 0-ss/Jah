@@ -302,22 +302,34 @@
 
     <script>
         const audio = document.getElementById("audioPlayer");
+        const video = document.getElementById("bg-video");
 
-        function tryToPlayAudio() {
-            audio.volume = 0.5;
-            audio.play().then(() => {
-                console.log("Audio playback started!");
-                document.removeEventListener("mousemove", tryToPlayAudio);
-                document.removeEventListener("keydown", tryToPlayAudio);
-                document.removeEventListener("touchstart", tryToPlayAudio);
-            }).catch(error => {
-                console.log("Audio autoplay blocked:", error);
-            });
+        // Function to enter the site
+        function enterSite() {
+            // Play the audio
+            audio.play();
+
+            // Hide the overlay
+            document.getElementById('overlay').style.display = 'none';
+
+            // Show the video and play it
+            video.style.display = 'block';
+            video.play();
+
+            // Enable buttons with staggered delays
+            showButtons();
         }
 
-        document.addEventListener("mousemove", tryToPlayAudio);
-        document.addEventListener("keydown", tryToPlayAudio);
-        document.addEventListener("touchstart", tryToPlayAudio);
+        // Enable buttons with staggered delays
+        function showButtons() {
+            const buttons = [document.getElementById("button1"), document.getElementById("button2"), document.getElementById("button3"), document.getElementById("button4")];
+            buttons.forEach((button, index) => {
+                setTimeout(() => {
+                    button.style.opacity = 1;
+                    button.style.transform = 'translateY(0)';
+                }, (index + 1) * 1000); // Delays of 1s, 2s, 3s, 4s
+            });
+        }
     </script>
 
     <video autoplay loop muted playsinline id="bg-video">
