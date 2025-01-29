@@ -31,20 +31,21 @@
             z-index: -1;
         }
 
-        /* Blurred overlay */
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-        }
+    /* Blurred overlay */
+    #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(100px); /* Increased blur strength */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    }
+
 
         /* Text in the center of the overlay */
         #overlay h2 {
@@ -63,21 +64,26 @@
             transform: scale(1.1);
         }
 
-        .container {
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 400px;
-            width: 90%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
+     .container {
+    background: rgba(255, 255, 255, 0.1); /* Very light background to avoid darkness */
+    backdrop-filter: blur(15px); /* Adjust blur strength */
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transform: translateY(100px); /* Start off-screen */
+    opacity: 0;
+    }
+
 
         @keyframes containerLoad {
             from { transform: translateY(50px); opacity: 0; }
@@ -85,8 +91,13 @@
         }
 
         .container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05); /* Slightly enlarges */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .container.show {
+        transform: translateY(0); /* Move to center */
+        opacity: 1; /* Fade in */
         }
 
         .tree-image {
@@ -226,6 +237,53 @@
             display: flex;
             gap: 20px; /* Increased space between buttons */
         }
+
+
+/* Rain container */
+#rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Doesn't block clicks */
+    overflow: hidden;
+    z-index: 100; /* Keeps rain above everything */
+}
+
+/* Individual raindrop (small glowing dots) */
+.raindrop {
+    position: absolute;
+    width: 3px; /* Increased from 2px to 3px */
+    height: 10px; /* Increased from 7px to 10px */
+    background: rgba(255, 255, 255, 0.9); /* Brighter white */
+    opacity: 1; /* Fully visible */
+    filter: drop-shadow(0 0 5px rgb(0, 0, 0)); /* Glow effect */
+    animation: fall linear infinite;
+    
+    /* Stronger glow effect */
+    box-shadow: 
+        0px 0px 8px rgba(255, 255, 255, 0.9), /* Outer glow */
+        0px 0px 15px rgba(255, 255, 255, 0.8); /* Extra shine */
+    
+    animation: fall linear infinite;
+}
+
+/* Enhanced falling animation */
+@keyframes fall {
+    from {
+        transform: translate(var(--wind-direction, 0), -10vh);
+        opacity: 0;
+    }
+    to {
+        transform: translate(var(--wind-direction, 0), 100vh);
+        opacity: 1;
+    }
+}
+
+
+
+
     </style>
 </head>
 <body>
@@ -310,8 +368,11 @@
 
         // Function to enter the site
         function enterSite() {
-            // Play the audio
             audio.play();
+            document.getElementById('overlay').style.display = 'none'; // Hide overlay
+            document.querySelector('.container').classList.add('show'); // Trigger animation
+
+            
 
             // Hide the overlay
             document.getElementById('overlay').style.display = 'none';
@@ -335,8 +396,52 @@
             });
         }
 
-        
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const rainContainer = document.getElementById("rain-container");
+
+    function createRaindrop() {
+        const raindrop = document.createElement("div");
+        raindrop.classList.add("raindrop");
+
+        // Random starting position
+        raindrop.style.left = Math.random() * window.innerWidth + "px";
+        raindrop.style.top = -10 + "px"; 
+
+        // Random fall speed
+        let fallDuration = Math.random() * 2 + 2; // Between 2s to 4s
+        raindrop.style.animationDuration = fallDuration + "s";
+
+        rainContainer.appendChild(raindrop);
+
+        setTimeout(() => {
+            rainContainer.removeChild(raindrop);
+        }, fallDuration * 1000);
+    }
+
+    // Generate rain continuously
+    setInterval(createRaindrop, 50);
+
+    // Stronger wind effect when moving the mouse
+    document.addEventListener("mousemove", function (event) {
+        let mouseX = event.clientX;
+        let screenWidth = window.innerWidth;
+
+        // Increase the wind shift
+        let direction = (mouseX - screenWidth / 2) / (screenWidth / 2);
+
+        // More dramatic effect
+        document.documentElement.style.setProperty("--wind-direction", direction * -50 + "px");
+    });
+});
+
+
+
+
+    window.onload = createRain;
     </script>
+
+        
 
     <video autoplay loop muted playsinline id="bg-video">
         <source src="video/286ca23ca16fbe6892031a59cd00747a (online-video-cutter.com).mp4" type="video/mp4">
@@ -348,5 +453,15 @@
             cursor: url('images/276a370e-b5c1-41e4-be88-a429344b6f01.png'), auto;
         }
     </style>
+
+
+
+<body>
+    <div id="rain-container"></div>
+</body>
+
+
+    
+
 </body>
 </html>
