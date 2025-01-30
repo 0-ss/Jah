@@ -3,515 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/jpg" href="images/Tree.jpg">
-    <title>SharkV3</title>
-
-    <script>
-        // Check if the user is logged in
-        if (!localStorage.getItem("loggedIn")) {
-            window.location.href = "Signup.html"; // Redirect to signup page if not logged in
-        }
-    </script>
-
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
-
-
-
+    <title>Login / Sign Up</title>
     <style>
+        /* Default Dark Mode Styles */
         body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Arial', sans-serif;
-            color: white;
+            transition: background-color 0.3s, color 0.3s;
         }
-
-        /* Video as background */
-        #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: -1;
-        }
-
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(100px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            transition: opacity 0.5s ease-out;
-        }
-
-        #overlay.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Text in the center of the overlay */
-        #overlay h2 {
-            font-size: 30px;
-            font-family: 'Roboto Slab', serif;
-            text-align: center;
-            color: white;
-            cursor: pointer;
+        .container {
+            background-color: #1e1e1e;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        #overlay h2:hover {
-            transform: scale(1.1);
-        }
-
-     .container {
-    background: rgba(255, 255, 255, 0.1); /* Very light background to avoid darkness */
-    backdrop-filter: blur(15px); /* Adjust blur strength */
-    border-radius: 15px;
-    padding: 40px;
-    max-width: 400px;
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    transform: translateY(100px); /* Start off-screen */
-    opacity: 0;
-    }
-
-
-        @keyframes containerLoad {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .container:hover {
-            transform: scale(1.05); /* Slightly enlarges */
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-
-        .container.show {
-        transform: translateY(0); /* Move to center */
-        opacity: 1; /* Fade in */
-        }
-
-        .tree-image {
-            margin-bottom: 20px;
-            width: 100px;
-            height: auto;
-            animation: fadeIn 1s ease-in;
-        }
-
-        h1 {
-            font-size: 40px;
-            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 320px;
             text-align: center;
-            animation: textPop 1s ease forwards;
         }
-
-        @keyframes textPop {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
         h2 {
-            font-size: 28px;
-            margin: 20px 0;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        p {
-            font-size: 18px;
-            text-align: center;
             margin-bottom: 20px;
+            font-size: 24px;
+            color: #ffffff;
+            transition: color 0.3s;
         }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #333;
+            color: #ffffff;
+            transition: background 0.3s, border-color 0.3s;
         }
-
-        li {
+        input:focus {
+            outline: none;
+            border-color: #28a745;
+            background-color: #444;
+        }
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #aaa;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
             font-size: 16px;
-            margin: 10px 0;
-            text-align: center;
-        }
-
-        /* Updated Staggered Buttons */
-        .staggered-button {
-            padding: 0;
-            border: none;
-            background: none;
             cursor: pointer;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: background-color 0.3s;
         }
-
-        .staggered-button img {
-            width: 50px; /* Adjust image size */
-            height: auto;
-            transition: transform 0.2s ease; /* Smooth transition for hover */
+        input[type="submit"]:hover {
+            background-color: #218838;
         }
-
-        /* Hover Animation */
-        .staggered-button:hover img {
-            transform: scale(1.1); /* Scale the image by 10% */
+        .toggle-form {
+            margin-top: 15px;
+            color: #ffffff;
         }
-
-        .button-container {
+        .toggle-form a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: #ff4444;
+            margin-top: 10px;
+            font-size: 14px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .remember-me {
             display: flex;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-
-        #discord-button, #projects-button {
-            background-color: #454d69;
-            border: none;
-            border-radius: 5px;
-            width: 150px;
-            height: 40px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
             align-items: center;
-            color: white;
-            font-weight: bold;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            margin-right: 10px;
+            justify-content: start;
+            gap: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+        .theme-toggle:hover {
+            background-color: #218838;
+        }
+        .password-strength {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #aaa;
+        }
+        .password-strength.weak {
+            color: #ff4444;
+        }
+        .password-strength.medium {
+            color: #ffcc00;
+        }
+        .password-strength.strong {
+            color: #28a745;
         }
 
-        #discord-button {
-            background: linear-gradient(270deg, #7289DA, #23272A);
-            background-size: 200% 200%;
-            animation: moveBackground 0.7s linear infinite; 
+        /* Light Mode */
+        body.light-mode {
+            background-color: #f4f4f4;
+            color: #000;
+        }
+        body.light-mode .container {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode h2 {
+            color: #000;
+        }
+        body.light-mode input {
+
+
+        background-color: #f0f0f0;
+            border-color: #ccc;
+            color: #000;
+        }
+        body.light-mode .toggle-form {
+            color: #000;
         }
 
-        @keyframes moveBackground {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        #discord-button img {
-            width: 37px;
-            height: auto;
-            margin-right: 5px;
-        }
-
-        #discord-button:hover, #projects-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        #since {
-            position: absolute;
-            bottom: 20px; 
-            left: 20px; 
-            font-family: 'Roboto Slab', serif; 
-            font-size: 14px; 
-            color: rgba(255, 255, 255, 0.7); 
-            animation: fadeIn 2s ease forwards;
-        }
-
+        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
-
-        @media (max-width: 480px) {
-            #discord-button, #projects-button {
-                width: 120px;
-            }
-        }
-
-        /* New Container for Staggered Buttons */
-        .staggered-buttons-container {
-            display: flex;
-            gap: 20px; /* Increased space between buttons */
-        }
-
-
-        #logout-button {
-    display: none; /* Initially hidden */
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 1px 2px;
-    font-size: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    z-index: 1000;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-
-#logout-button img {
-    width: 24px;
-    height: 24px;
-    margin-right: 1px;
-}
-
-#logout-button:hover {
-    background-color: darkred;
-    transform: scale(1.05);
-}
-
-
-/* Rain container */
-#rain-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none; /* Doesn't block clicks */
-    overflow: hidden;
-    z-index: 100; /* Keeps rain above everything */
-}
-
-/* Individual raindrop (small glowing dots) */
-.raindrop {
-    position: absolute;
-    width: 3px; /* Increased from 2px to 3px */
-    height: 10px; /* Increased from 7px to 10px */
-    background: rgba(255, 255, 255, 0.9); /* Brighter white */
-    opacity: 1; /* Fully visible */
-    filter: drop-shadow(0 0 5px rgb(0, 0, 0)); /* Glow effect */
-    animation: fall linear infinite;
-    
-    /* Stronger glow effect */
-    box-shadow: 
-        0px 0px 8px rgba(255, 255, 255, 0.9), /* Outer glow */
-        0px 0px 15px rgba(255, 255, 255, 0.8); /* Extra shine */
-    
-    animation: fall linear infinite;
-}
-
-/* Enhanced falling animation */
-@keyframes fall {
-    from {
-        transform: translate(var(--wind-direction, 0), -10vh);
-        opacity: 0;
-    }
-    to {
-        transform: translate(var(--wind-direction, 0), 100vh);
-        opacity: 1;
-    }
-}
-
     </style>
 </head>
 <body>
-    <button id="logout-button" onclick="logout()">
-        <img src="https://imgur.com/VBpvP5B.png" alt="Logout">
-    </button>
 
-    <!-- Blurred Overlay -->
-    <div id="overlay" onclick="enterSite()">
-        <h2>Click to enter...</h2>
+<!-- Theme Toggle Button -->
+<button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">🌙</button>
+
+<!-- Login Container -->
+<div class="container" id="loginContainer">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" id="loginUsername" placeholder="Username" required aria-label="Username">
+        <input type="password" id="loginPassword" placeholder="Password" required aria-label="Password">
+        <div class="remember-me">
+            <input type="checkbox" id="rememberMe" aria-label="Remember Me">
+            <label for="rememberMe">Remember Me</label>
+        </div>
+        <input type="submit" value="Login">
+    </form>
+    <div class="toggle-form">
+        <p>Don't have an account? <a href="#" onclick="toggleForm('signupContainer')">Sign Up</a></p>
     </div>
+    <div class="error" id="loginError" role="alert" aria-live="polite"></div>
+</div>
 
-    <div class="container">
-        <img class="tree-image" src="https://imgur.com/Jk6HHWN.jpeg" alt="poison tree">
-
-        <h1>SharkV3</h1>
-        <p>--SharkV3 executor - Click at the shark logo--</p>
-
-        <div class="staggered-buttons-container">
-            <button id="button1" class="staggered-button" onclick="window.open('https://mega.nz/file/CbhmVDhC#iLDMHJnhkZCMjUDfuh87WtHq4bBUQlXQOWyblZfZwsM', '_blank')">
-                <img src="images/png-fierce-formidable-anime-shark-boy-with-sharp-teeth-creative-chibi-sticker-collection_1020495-340376.png" alt="Icon 1">
-            </button>
-            <button id="button2" class="staggered-button" onclick="window.open('https://www.youtube.com/@cu7z', '_blank')">
-                <img src="images/youtube logo (4).png" alt="Icon 2">
-            </button>
-            <button id="button3" class="staggered-button" onclick="window.open('https://www.tiktok.com/@MS4wLjABAAAAJ7xmRRmoez12d5P7k5Q5ZrA5hOjy_4-D-Ln27uNY_padB6WrF292gLUqhsfGpvKO?i', '_blank')">
-                <img src="images/Social-media_Tiktok-512.png" alt="Icon 3">
-            </button>
-            <button id="button4" class="staggered-button" onclick="window.open('https://link4.com', '_blank')">
-                <img src="https://imgur.com/t4Avm2c.jpeg" alt="Icon 4">
-            </button>
-        </div>        
-        
+<!-- Sign-Up Container -->
+<div class="container" id="signupContainer" style="display: none;">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+        <input type="text" id="signupUsername" placeholder="Username" required aria-label="Username">
+        <input type="password" id="signupPassword" placeholder="Password" required aria-label="Password" oninput="checkPasswordStrength(this.value)">
+        <div class="password-strength" id="passwordStrength"></div>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required aria-label="Confirm Password">
+        <input type="submit" value="Sign Up">
+    </form>
+    <div class="toggle-form">
+        <p>Already have an account? <a href="#" onclick="toggleForm('loginContainer')">Login</a></p>
     </div>
+    <div class="error" id="signupError" role="alert" aria-live="polite"></div>
+</div>
 
-    <div id="since">By Jah | Since 2022</div>
-
-    
-
-    <script>
-        function enterSite() {
-            document.getElementById('overlay').style.display = 'none'; // Hide the overlay on click
-        }
-
-        // Enable buttons with a staggered delay
-        const button1 = document.getElementById('button1');
-        const button2 = document.getElementById('button2');
-        const button3 = document.getElementById('button3');
-        const button4 = document.getElementById('button4');
-
-        setTimeout(() => {
-            button1.disabled = false;
-            button1.style.opacity = 1;
-            button1.style.transform = 'translateY(0)';
-        }, 1000); // 1 second
-
-        setTimeout(() => {
-            button2.disabled = false;
-            button2.style.opacity = 1;
-            button2.style.transform = 'translateY(0)';
-        }, 2000); // 2 seconds
-
-        setTimeout(() => {
-            button3.disabled = false;
-            button3.style.opacity = 1;
-            button3.style.transform = 'translateY(0)';
-        }, 3000); // 3 seconds
-
-        setTimeout(() => {
-            button4.disabled = false;
-            button4.style.opacity = 1;
-            button4.style.transform = 'translateY(0)';
-        }, 4000); // 4 seconds
-    </script>
-
-    <audio id="audioPlayer">
-        <source src="audio/a carlo.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
-
-    <script>
-        document.getElementById('audioPlayer').volume = 0.2;  // Sets the volume to 20%
-    </script>
-
-    <script>
-        const audio = document.getElementById("audioPlayer");
-        const video = document.getElementById("bg-video");
-
-        // Function to enter the site
-function enterSite() {
-    audio.play();
-    document.getElementById('overlay').style.display = 'none'; // Hide overlay
-    document.querySelector('.container').classList.add('show'); // Trigger animation
-    
-    // Delay showing the logout button slightly to ensure smooth transition
-    setTimeout(() => {
-        document.getElementById('logout-button').style.display = 'block';
-    }, 500); // Shows after 0.5 seconds
-
-    // Show the video and play it
-    video.style.display = 'block';
-    video.play();
-
-    // Enable buttons with staggered delays
-    showButtons();
-}
-
-        // Enable buttons with staggered delays
-        function showButtons() {
-            const buttons = [document.getElementById("button1"), document.getElementById("button2"), document.getElementById("button3"), document.getElementById("button4")];
-            buttons.forEach((button, index) => {
-                setTimeout(() => {
-                    button.style.opacity = 1;
-                    button.style.transform = 'translateY(0)';
-                }, (index + 1) * 1000); // Delays of 1s, 2s, 3s, 4s
-            });
-        }
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-    const rainContainer = document.getElementById("rain-container");
-
-    function createRaindrop() {
-        const raindrop = document.createElement("div");
-        raindrop.classList.add("raindrop");
-
-        // Random starting position
-        raindrop.style.left = Math.random() * window.innerWidth + "px";
-        raindrop.style.top = -10 + "px"; 
-
-        // Random fall speed
-        let fallDuration = Math.random() * 2 + 2; // Between 2s to 4s
-        raindrop.style.animationDuration = fallDuration + "s";
-
-        rainContainer.appendChild(raindrop);
-
-        setTimeout(() => {
-            rainContainer.removeChild(raindrop);
-        }, fallDuration * 1000);
+<script>
+    // Toggle between Login and Sign-Up forms
+    function toggleForm(formId) {
+        document.getElementById('loginContainer').style.display = formId === 'loginContainer' ? 'block' : 'none';
+        document.getElementById('signupContainer').style.display = formId === 'signupContainer' ? 'block' : 'none';
     }
 
-    // Generate rain continuously
-    setInterval(createRaindrop, 50);
+    // Handle Sign-Up
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const username = document.getElementById('signupUsername').value;
+        const password = document.getElementById('signupPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
 
-    // Stronger wind effect when moving the mouse
-    document.addEventListener("mousemove", function (event) {
-        let mouseX = event.clientX;
-        let screenWidth = window.innerWidth;
-
-        // Increase the wind shift
-        let direction = (mouseX - screenWidth / 2) / (screenWidth / 2);
-
-        // More dramatic effect
-        document.documentElement.style.setProperty("--wind-direction", direction * -50 + "px");
-    });
-});
-
-function logout() {
-    alert("Logging out...");
-    localStorage.removeItem("loggedIn"); // Clear login status
-    window.location.href = "Signup.html";
-}
-    window.onload = createRain;
-
-    
-    </script>
-
-    <video autoplay loop muted playsinline id="bg-video">
-        <source src="video/286ca23ca16fbe6892031a59cd00747a (online-video-cutter.com).mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
-    <style>
-        body {
-            cursor: url('images/276a370e-b5c1-41e4-be88-a429344b6f01.png'), auto;
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            document.getElementById('signupError').textContent = 'Passwords do not match!';
+            return;
         }
-    </style>
+
+        // Check password strength
+        if (!isPasswordStrong(password)) {
+            document.getElementById('signupError').textContent = 'Password must be at least 8 characters long and include a number or special character.';
+            return;
+        }
+
+        // Check if username already exists
+        if (localStorage.getItem(username)) {
+            document.getElementById('signupError').textContent = 'Username already used!';
+            return;
+        }
+
+        // Save user data to localStorage
+        localStorage.setItem(username, JSON.stringify({ username, password }));
+        document.getElementById('signupError').textContent = '';
+        alert('Account created successfully! Please log in.');
+        toggleForm('loginContainer');
+    });
+
+    // Handle Login
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
 
 
+    const rememberMe = document.getElementById('rememberMe').checked;
 
-<body>
-    <div id="rain-container"></div>
-</body>
+        // Retrieve user data from localStorage
+        const userData = JSON.parse(localStorage.getItem(username));
 
+        if (userData && userData.password === password) {
+            // Save username to localStorage if "Remember Me" is checked
+            if (rememberMe) {
+                localStorage.setItem('rememberedUser', username);
+            } else {
+                localStorage.removeItem('rememberedUser');
+            }
+
+            alert('Login successful! press ok to continue...');
+            window.location.href = 'SignUp.html'; // Redirect to the main page
+        } else {
+            document.getElementById('loginError').textContent = 'Invalid username or password!';
+        }
+    });
+
+    // Theme Toggle Function
+    function toggleTheme() {
+        const body = document.body;
+        const themeToggle = document.querySelector('.theme-toggle');
+        if (body.classList.contains('light-mode')) {
+            body.classList.remove('light-mode');
+            themeToggle.textContent = '🌙'; // Moon icon for dark mode
+        } else {
+            body.classList.add('light-mode');
+            themeToggle.textContent = '☀️'; // Sun icon for light mode
+        }
+    }
+
+    // Check for remembered user on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        const rememberedUser = localStorage.getItem('rememberedUser');
+        if (rememberedUser) {
+            document.getElementById('loginUsername').value = rememberedUser;
+            document.getElementById('rememberMe').checked = true;
+        }
+    });
+
+    // Password Strength Checker
+    function checkPasswordStrength(password) {
+        const strengthText = document.getElementById('passwordStrength');
+        if (password.length === 0) {
+            strengthText.textContent = '';
+            return;
+        }
+        if (password.length < 8) {
+            strengthText.textContent = 'Weak';
+            strengthText.className = 'password-strength weak';
+        } else if (password.length >= 8 && !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            strengthText.textContent = 'Medium';
+            strengthText.className = 'password-strength medium';
+        } else {
+            strengthText.textContent = 'Strong';
+            strengthText.className = 'password-strength strong';
+        }
+    }
+
+    // Password Strength Validation
+    function isPasswordStrong(password) {
+        return password.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    }
+
+
+    function signup() {
+        // Perform signup logic here (e.g., validate inputs, send data to server, etc.)
+
+        // After successful signup, set the loggedIn flag and redirect to index.html
+        localStorage.setItem("loggedIn", "true");
+        window.location.href = "index.html";
+    }
+</script>
 
 </body>
 </html>
