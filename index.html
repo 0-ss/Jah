@@ -6,7 +6,17 @@
     <link rel="icon" type="image/jpg" href="images/Tree.jpg">
     <title>SharkV3</title>
 
+    <script>
+        // Check if the user is logged in
+        if (!localStorage.getItem("loggedIn")) {
+            window.location.href = "Signup.html"; // Redirect to signup page if not logged in
+        }
+    </script>
+
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
+
+
 
     <style>
         body {
@@ -31,21 +41,25 @@
             z-index: -1;
         }
 
-    /* Blurred overlay */
-    #overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(100px); /* Increased blur strength */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    }
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(100px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.5s ease-out;
+        }
 
+        #overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
 
         /* Text in the center of the overlay */
         #overlay h2 {
@@ -226,6 +240,7 @@
             to { opacity: 1; }
         }
 
+
         @media (max-width: 480px) {
             #discord-button, #projects-button {
                 width: 120px;
@@ -237,6 +252,38 @@
             display: flex;
             gap: 20px; /* Increased space between buttons */
         }
+
+
+        #logout-button {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 1px 2px;
+    font-size: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+#logout-button img {
+    width: 24px;
+    height: 24px;
+    margin-right: 1px;
+}
+
+#logout-button:hover {
+    background-color: darkred;
+    transform: scale(1.05);
+}
 
 
 /* Rain container */
@@ -281,12 +328,12 @@
     }
 }
 
-
-
-
     </style>
 </head>
 <body>
+    <button id="logout-button" onclick="logout()">
+        <img src="https://imgur.com/VBpvP5B.png" alt="Logout">
+    </button>
 
     <!-- Blurred Overlay -->
     <div id="overlay" onclick="enterSite()">
@@ -312,10 +359,13 @@
             <button id="button4" class="staggered-button" onclick="window.open('https://link4.com', '_blank')">
                 <img src="https://imgur.com/t4Avm2c.jpeg" alt="Icon 4">
             </button>
-        </div>
+        </div>        
+        
     </div>
 
     <div id="since">By Jah | Since 2022</div>
+
+    
 
     <script>
         function enterSite() {
@@ -367,23 +417,23 @@
         const video = document.getElementById("bg-video");
 
         // Function to enter the site
-        function enterSite() {
-            audio.play();
-            document.getElementById('overlay').style.display = 'none'; // Hide overlay
-            document.querySelector('.container').classList.add('show'); // Trigger animation
+function enterSite() {
+    audio.play();
+    document.getElementById('overlay').style.display = 'none'; // Hide overlay
+    document.querySelector('.container').classList.add('show'); // Trigger animation
+    
+    // Delay showing the logout button slightly to ensure smooth transition
+    setTimeout(() => {
+        document.getElementById('logout-button').style.display = 'block';
+    }, 500); // Shows after 0.5 seconds
 
-            
+    // Show the video and play it
+    video.style.display = 'block';
+    video.play();
 
-            // Hide the overlay
-            document.getElementById('overlay').style.display = 'none';
-
-            // Show the video and play it
-            video.style.display = 'block';
-            video.play();
-
-            // Enable buttons with staggered delays
-            showButtons();
-        }
+    // Enable buttons with staggered delays
+    showButtons();
+}
 
         // Enable buttons with staggered delays
         function showButtons() {
@@ -435,13 +485,15 @@
     });
 });
 
-
-
-
+function logout() {
+    alert("Logging out...");
+    localStorage.removeItem("loggedIn"); // Clear login status
+    window.location.href = "Signup.html";
+}
     window.onload = createRain;
-    </script>
 
-        
+    
+    </script>
 
     <video autoplay loop muted playsinline id="bg-video">
         <source src="video/286ca23ca16fbe6892031a59cd00747a (online-video-cutter.com).mp4" type="video/mp4">
@@ -460,8 +512,6 @@
     <div id="rain-container"></div>
 </body>
 
-
-    
 
 </body>
 </html>

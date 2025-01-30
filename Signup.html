@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up</title>
+    <style>
+        /* Default Dark Mode Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 320px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ffffff;
+            transition: color 0.3s;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #333;
+            color: #ffffff;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #28a745;
+            background-color: #444;
+        }
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #aaa;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .toggle-form {
+            margin-top: 15px;
+            color: #ffffff;
+        }
+        .toggle-form a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: #ff4444;
+            margin-top: 10px;
+            font-size: 14px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+        .theme-toggle:hover {
+            background-color: #218838;
+        }
+        .password-strength {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #aaa;
+        }
+        .password-strength.weak {
+            color: #ff4444;
+        }
+        .password-strength.medium {
+            color: #ffcc00;
+        }
+        .password-strength.strong {
+            color: #28a745;
+        }
+
+        /* Light Mode */
+        body.light-mode {
+            background-color: #f4f4f4;
+            color: #000;
+        }
+        body.light-mode .container {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode h2 {
+            color: #000;
+        }
+        body.light-mode input {
+
+
+        background-color: #f0f0f0;
+            border-color: #ccc;
+            color: #000;
+        }
+        body.light-mode .toggle-form {
+            color: #000;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Theme Toggle Button -->
+<button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">🌙</button>
+
+<!-- Login Container -->
+<div class="container" id="loginContainer">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" id="loginUsername" placeholder="Username" required aria-label="Username">
+        <input type="password" id="loginPassword" placeholder="Password" required aria-label="Password">
+        <div class="remember-me">
+            <input type="checkbox" id="rememberMe" aria-label="Remember Me">
+            <label for="rememberMe">Remember Me</label>
+        </div>
+        <input type="submit" value="Login">
+    </form>
+    <div class="toggle-form">
+        <p>Don't have an account? <a href="#" onclick="toggleForm('signupContainer')">Sign Up</a></p>
+    </div>
+    <div class="error" id="loginError" role="alert" aria-live="polite"></div>
+</div>
+
+<!-- Sign-Up Container -->
+<div class="container" id="signupContainer" style="display: none;">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+        <input type="text" id="signupUsername" placeholder="Username" required aria-label="Username">
+        <input type="password" id="signupPassword" placeholder="Password" required aria-label="Password" oninput="checkPasswordStrength(this.value)">
+        <div class="password-strength" id="passwordStrength"></div>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required aria-label="Confirm Password">
+        <input type="submit" value="Sign Up">
+    </form>
+    <div class="toggle-form">
+        <p>Already have an account? <a href="#" onclick="toggleForm('loginContainer')">Login</a></p>
+    </div>
+    <div class="error" id="signupError" role="alert" aria-live="polite"></div>
+</div>
+
+<script>
+    // Toggle between Login and Sign-Up forms
+    function toggleForm(formId) {
+        document.getElementById('loginContainer').style.display = formId === 'loginContainer' ? 'block' : 'none';
+        document.getElementById('signupContainer').style.display = formId === 'signupContainer' ? 'block' : 'none';
+    }
+
+    // Handle Sign-Up
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const username = document.getElementById('signupUsername').value;
+        const password = document.getElementById('signupPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            document.getElementById('signupError').textContent = 'Passwords do not match!';
+            return;
+        }
+
+        // Check password strength
+        if (!isPasswordStrong(password)) {
+            document.getElementById('signupError').textContent = 'Password must be at least 8 characters long and include a number or special character.';
+            return;
+        }
+
+        // Check if username already exists
+        if (localStorage.getItem(username)) {
+            document.getElementById('signupError').textContent = 'Username already used!';
+            return;
+        }
+
+        // Save user data to localStorage
+        localStorage.setItem(username, JSON.stringify({ username, password }));
+        document.getElementById('signupError').textContent = '';
+        alert('Account created successfully! Please log in.');
+        toggleForm('loginContainer');
+    });
+
+    // Handle Login
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+
+
+    const rememberMe = document.getElementById('rememberMe').checked;
+
+        // Retrieve user data from localStorage
+        const userData = JSON.parse(localStorage.getItem(username));
+
+        if (userData && userData.password === password) {
+            // Save username to localStorage if "Remember Me" is checked
+            if (rememberMe) {
+                localStorage.setItem('rememberedUser', username);
+            } else {
+                localStorage.removeItem('rememberedUser');
+            }
+
+            alert('Login successful! press ok to continue...');
+            window.location.href = 'index.html'; // Redirect to the main page
+        } else {
+            document.getElementById('loginError').textContent = 'Invalid username or password!';
+        }
+    });
+
+    // Theme Toggle Function
+    function toggleTheme() {
+        const body = document.body;
+        const themeToggle = document.querySelector('.theme-toggle');
+        if (body.classList.contains('light-mode')) {
+            body.classList.remove('light-mode');
+            themeToggle.textContent = '🌙'; // Moon icon for dark mode
+        } else {
+            body.classList.add('light-mode');
+            themeToggle.textContent = '☀️'; // Sun icon for light mode
+        }
+    }
+
+    // Check for remembered user on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        const rememberedUser = localStorage.getItem('rememberedUser');
+        if (rememberedUser) {
+            document.getElementById('loginUsername').value = rememberedUser;
+            document.getElementById('rememberMe').checked = true;
+        }
+    });
+
+    // Password Strength Checker
+    function checkPasswordStrength(password) {
+        const strengthText = document.getElementById('passwordStrength');
+        if (password.length === 0) {
+            strengthText.textContent = '';
+            return;
+        }
+        if (password.length < 8) {
+            strengthText.textContent = 'Weak';
+            strengthText.className = 'password-strength weak';
+        } else if (password.length >= 8 && !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            strengthText.textContent = 'Medium';
+            strengthText.className = 'password-strength medium';
+        } else {
+            strengthText.textContent = 'Strong';
+            strengthText.className = 'password-strength strong';
+        }
+    }
+
+    // Password Strength Validation
+    function isPasswordStrong(password) {
+        return password.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    }
+
+
+    function signup() {
+        // Perform signup logic here (e.g., validate inputs, send data to server, etc.)
+
+        // After successful signup, set the loggedIn flag and redirect to index.html
+        localStorage.setItem("loggedIn", "true");
+        window.location.href = "index.html";
+    }
+</script>
+
+</body>
+</html>
