@@ -223,24 +223,34 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('signupContainer').style.display = formId === 'signupContainer' ? 'block' : 'none';
     }
 
-    // Handle Sign-Up
-    document.getElementById('signupForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const username = document.getElementById('signupUsername').value;
-        const password = document.getElementById('signupPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+// Handle Sign-Up
+document.getElementById('signupForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const username = document.getElementById('signupUsername').value.trim();
+    const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const signupError = document.getElementById('signupError');
 
-        // Check if passwords match
-        if (password !== confirmPassword) {
-            document.getElementById('signupError').textContent = 'Passwords do not match!';
-            return;
-        }
+    // Get all registered users
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Check if the username already exists
+    if (users.some(user => user.username === username)) {
+        signupError.textContent = 'Username already taken!';
+        return;
+    }
 
         // Check password strength
         if (!isPasswordStrong(password)) {
             document.getElementById('signupError').textContent = 'Password must be at least 8 characters long and include a number or special character.';
             return;
         }
+
+          // Add the new user to the users array
+        users.push({ username, password });
+
+        // Save updated users list to localStorage
+         localStorage.setItem('users', JSON.stringify(users));
 
         // Check if username already exists
         if (localStorage.getItem(username)) {
@@ -261,34 +271,37 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleForm('loginContainer');
     });
 
-    // Handle Login
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const username = document.getElementById('loginUsername').value;
-        const password = document.getElementById('loginPassword').value;
-        
-        
-
-
+// Handle Login
+document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value;
     const rememberMe = document.getElementById('rememberMe').checked;
+    const loginError = document.getElementById('loginError');
 
-        // Retrieve user data from localStorage
-        const userData = JSON.parse(localStorage.getItem(username));
+    // Get all registered users
+    let users = JSON.parse(localStorage.getItem('users')) || [];
 
-        if (userData && userData.password === password) {
-            // Save username to localStorage if "Remember Me" is checked
-            if (rememberMe) {
-                localStorage.setItem('rememberedUser', username);
-            } else {
-                localStorage.removeItem('rememberedUser');
-            }
+    // Check if user exists
+    const user = users.find(user => user.username === username && user.password === password);
 
-            alert('Login successful! press ok to continue...');
-            window.location.href = 'amainpage.html'; // Redirect to the main page
+    if (user) {
+        // Store logged-in user
+        localStorage.setItem('loggedInUser', username);
+        localStorage.setItem('loginTime', Date.now());
+
+        if (rememberMe) {
+            localStorage.setItem('rememberedUser', username);
         } else {
-            document.getElementById('loginError').textContent = 'Invalid username or password!';
+            localStorage.removeItem('rememberedUser');
         }
-    });
+
+        alert('Login successful! Press OK to continue...');
+        window.location.href = 'amainpage.html'; // Redirect to main page
+    } else {
+        loginError.textContent = 'Invalid username or password!';
+    }
+});
 
     // Theme Toggle Function
     function toggleTheme() {
