@@ -203,6 +203,20 @@
 </div>
 
 <script>
+    // Redirect if already logged in
+document.addEventListener('DOMContentLoaded', () => {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+        window.location.href = 'amainpage.html';
+    }
+
+    const rememberedUser = localStorage.getItem('rememberedUser');
+    if (rememberedUser) {
+        document.getElementById('loginUsername').value = rememberedUser;
+        document.getElementById('rememberMe').checked = true;
+    }
+});
+
     // Toggle between Login and Sign-Up forms
     function toggleForm(formId) {
         document.getElementById('loginContainer').style.display = formId === 'loginContainer' ? 'block' : 'none';
@@ -246,6 +260,8 @@
         e.preventDefault();
         const username = document.getElementById('loginUsername').value;
         const password = document.getElementById('loginPassword').value;
+        
+        
 
 
     const rememberMe = document.getElementById('rememberMe').checked;
@@ -313,9 +329,6 @@
     function isPasswordStrong(password) {
         return password.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/.test(password);
     }
-
-
-
 </script>
 
 </body>

@@ -326,7 +326,7 @@
     </style>
 </head>
 <body>
-    <button id="logout-button" onclick="logout()">
+    <button onclick="logout()">Logout</button>
         <img src="https://imgur.com/VBpvP5B.png" alt="Logout">
     </button>
 
@@ -481,10 +481,10 @@ function enterSite() {
 });
 
 function logout() {
-    alert("Logging out...");
-    localStorage.removeItem("loggedIn"); // Clear login status
-    window.location.href = "index.html";
-}
+        localStorage.removeItem('loggedInUser');
+        alert('You have been logged out.');
+        window.location.href = 'index.html'; // Redirect to login page
+    }
     window.onload = createRain;
 
         // Redirect user to login page if not logged in
