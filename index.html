@@ -209,6 +209,8 @@
 </div>
 
 <script>
+    
+
     // Redirect if already logged in
     document.addEventListener('DOMContentLoaded', () => {
         auth.onAuthStateChanged((user) => {
@@ -239,10 +241,6 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
     const confirmPassword = document.getElementById('confirmPassword').value;
     const signupError = document.getElementById('signupError');
 
-    // Get all registered users
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-
-
 
         // Check password strength
         if (!isPasswordStrong(password)) {
@@ -261,9 +259,6 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
             .catch((error) => {
                 signupError.textContent = error.message;
             });
-
-
-
     });
 
     // Handle Login
