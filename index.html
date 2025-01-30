@@ -350,5 +350,31 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     }
 </script>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+
+<!-- Your Firebase Configuration -->
+<script>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDVmKbDFY91a6zwTh-4s_lZ2g6HL2nnX0Q",
+    authDomain: "sharkv3-50ed9.firebaseapp.com",
+    projectId: "sharkv3-50ed9",
+    storageBucket: "sharkv3-50ed9.appspot.com",
+    messagingSenderId: "187052333616",
+    appId: "1:187052333616:web:780e4f542f9db11d0b6bf5",
+    measurementId: "G-X5406L2JC3"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Example: Check if Firebase is working
+  console.log("Firebase Initialized:", firebase.app().name);
+</script>
+
+
 </body>
 </html>
