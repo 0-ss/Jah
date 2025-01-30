@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login / Sign Up</title>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js"></script>
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js"></script>
 
     <style>
         /* Default Dark Mode Styles */
@@ -177,7 +177,7 @@
 <div class="container" id="loginContainer">
     <h2>Login</h2>
     <form id="loginForm">
-        <input type="email" id="loginEmail" placeholder="Email" required aria-label="Email">
+        <input type="text" id="loginUsername" placeholder="Username" required aria-label="Username">
         <input type="password" id="loginPassword" placeholder="Password" required aria-label="Password">
         <div class="remember-me">
             <input type="checkbox" id="rememberMe" aria-label="Remember Me">
@@ -195,6 +195,7 @@
 <div class="container" id="signupContainer" style="display: none;">
     <h2>Sign Up</h2>
     <form id="signupForm">
+        <input type="text" id="signupUsername" placeholder="Username" required aria-label="Username">
         <input type="email" id="signupEmail" placeholder="Email" required aria-label="Email">
         <input type="password" id="signupPassword" placeholder="Password" required aria-label="Password" oninput="checkPasswordStrength(this.value)">
         <div class="password-strength" id="passwordStrength"></div>
@@ -208,21 +209,6 @@
 </div>
 
 <script>
-    // Firebase configuration (replace with your Firebase project config)
-    const firebaseConfig = {
-  apiKey: "AIzaSyDVmkDfY79Ia6zwTh-4s_lZ2g6HL2nnX0Q",
-  authDomain: "sharkv3-50ed9.firebaseapp.com",
-  projectId: "sharkv3-50ed9",
-  storageBucket: "sharkv3-50ed9.firebasestorage.app",
-  messagingSenderId: "187052333616",
-  appId: "1:187052333616:web:780e4f542f9db11d0b6bf5",
-  measurementId: "G-X54Q6L2JC3"
-};
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
     // Redirect if already logged in
     document.addEventListener('DOMContentLoaded', () => {
         auth.onAuthStateChanged((user) => {
@@ -231,12 +217,12 @@
             }
         });
 
-        const rememberedUser = localStorage.getItem('rememberedUser');
-        if (rememberedUser) {
-            document.getElementById('loginEmail').value = rememberedUser;
-            document.getElementById('rememberMe').checked = true;
-        }
-    });
+    const rememberedUser = localStorage.getItem('rememberedUser');
+    if (rememberedUser) {
+        document.getElementById('loginUsername').value = rememberedUser;
+        document.getElementById('rememberMe').checked = true;
+    }
+});
 
     // Toggle between Login and Sign-Up forms
     function toggleForm(formId) {
@@ -244,25 +230,26 @@
         document.getElementById('signupContainer').style.display = formId === 'signupContainer' ? 'block' : 'none';
     }
 
-    // Handle Sign-Up
-    document.getElementById('signupForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const email = document.getElementById('signupEmail').value.trim();
-        const password = document.getElementById('signupPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const signupError = document.getElementById('signupError');
+// Handle Sign-Up
+document.getElementById('signupForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const username = document.getElementById('signupUsername').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const signupError = document.getElementById('signupError');
+
+    // Get all registered users
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+
+
 
         // Check password strength
         if (!isPasswordStrong(password)) {
-            signupError.textContent = 'Password must be at least 8 characters long and include a number or special character.';
+            document.getElementById('signupError').textContent = 'Password must be at least 8 characters long and include a number or special character.';
             return;
         }
 
-        // Check if passwords match
-        if (password !== confirmPassword) {
-            signupError.textContent = 'Passwords do not match!';
-            return;
-        }
 
         // Create user with Firebase Authentication
         auth.createUserWithEmailAndPassword(email, password)
@@ -274,12 +261,15 @@
             .catch((error) => {
                 signupError.textContent = error.message;
             });
+
+
+
     });
 
     // Handle Login
     document.getElementById('loginForm').addEventListener('submit', function (e) {
         e.preventDefault();
-        const email = document.getElementById('loginEmail').value.trim();
+        const username = document.getElementById('loginUsername').value.trim();
         const password = document.getElementById('loginPassword').value;
         const rememberMe = document.getElementById('rememberMe').checked;
         const loginError = document.getElementById('loginError');
@@ -301,7 +291,28 @@
             .catch((error) => {
                 loginError.textContent = error.message;
             });
-    });
+
+    // Get all registered users
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+
+
+    if (user) {
+        // Store logged-in user
+        localStorage.setItem('loggedInUser', username);
+        localStorage.setItem('loginTime', Date.now());
+
+        if (rememberMe) {
+            localStorage.setItem('rememberedUser', username);
+        } else {
+            localStorage.removeItem('rememberedUser');
+        }
+
+        alert('Login successful! Press OK to continue...');
+        window.location.href = 'amainpage.html'; // Redirect to main page
+    } else {
+        loginError.textContent = 'Invalid username or password!';
+    }
+});
 
     // Theme Toggle Function
     function toggleTheme() {
@@ -315,6 +326,7 @@
             themeToggle.textContent = '☀️'; // Sun icon for light mode
         }
     }
+
 
     // Password Strength Checker
     function checkPasswordStrength(password) {
@@ -340,5 +352,22 @@
         return password.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/.test(password);
     }
 </script>
+
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyDVmkDfY79Ia6zwTh-4s_lZ2g6HL2nnX0Q",
+    authDomain: "sharkv3-50ed9.firebaseapp.com",
+    projectId: "sharkv3-50ed9",
+    storageBucket: "sharkv3-50ed9.firebasestorage.app",
+    messagingSenderId: "187052333616",
+    appId: "1:187052333616:web:780e4f542f9db11d0b6bf5",
+    measurementId: "G-X54Q6L2JC3"
+  };
+  
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+</script>
+
 </body>
 </html>
