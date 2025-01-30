@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login / Sign Up</title>
+
+    <script type="module" src="register.js" defer></script>
+
     <style>
         /* Default Dark Mode Styles */
         body {
@@ -191,6 +194,7 @@
     <h2>Sign Up</h2>
     <form id="signupForm">
         <input type="text" id="signupUsername" placeholder="Username" required aria-label="Username">
+        <input type="email" id="signupEmail" placeholder="Email" required aria-label="Email">
         <input type="password" id="signupPassword" placeholder="Password" required aria-label="Password" oninput="checkPasswordStrength(this.value)">
         <div class="password-strength" id="passwordStrength"></div>
         <input type="password" id="confirmPassword" placeholder="Confirm Password" required aria-label="Confirm Password">
@@ -227,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('signupForm').addEventListener('submit', function (e) {
     e.preventDefault();
     const username = document.getElementById('signupUsername').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
     const password = document.getElementById('signupPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const signupError = document.getElementById('signupError');
@@ -350,30 +355,6 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     }
 </script>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
-
-<!-- Your Firebase Configuration -->
-<script>
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyDVmKbDFY91a6zwTh-4s_lZ2g6HL2nnX0Q",
-    authDomain: "sharkv3-50ed9.firebaseapp.com",
-    projectId: "sharkv3-50ed9",
-    storageBucket: "sharkv3-50ed9.appspot.com",
-    messagingSenderId: "187052333616",
-    appId: "1:187052333616:web:780e4f542f9db11d0b6bf5",
-    measurementId: "G-X5406L2JC3"
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-
-  // Example: Check if Firebase is working
-  console.log("Firebase Initialized:", firebase.app().name);
-</script>
 
 
 </body>
