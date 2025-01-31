@@ -90,25 +90,25 @@
         }
 
         .container {
-  background: rgba(255, 255, 255, 0.1); /* Very light background to avoid darkness */
-  backdrop-filter: blur(15px); /* Adjust blur strength */
-  border-radius: 15px;
-  padding: 14px;
-  max-width: 599px;
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: absolute; /* Use absolute positioning for 3D effect */
-  top: 50%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Offset the elements from center */
-  z-index: 1;
-  transition: transform 0.1s ease-out, box-shadow 0.3s ease-in-out;
-}
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 14px;
+            max-width: 599px;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: absolute;
+            top: 100vh; /* Start below the screen */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            transition: top 1s ease-out, transform 0.1s ease-out, box-shadow 0.3s ease-in-out;
+        }
 
 .container:nth-child(odd) {
   z-index: 1;
@@ -128,8 +128,8 @@
         }
 
         .container.show {
-        transform: translateY(0); /* Move to center */
-        opacity: 1; /* Fade in */
+            top: 50%; /* Move to the center */
+            transform: translate(-50%, -50%);
         }
 
         .tree-image {
@@ -321,14 +321,14 @@
 
     <!-- Blurred Overlay -->
     <div id="overlay" onclick="enterSite()">
-        <h2>Click to enter...</h2>
+        <h2>Click!✨</h2>
     </div>
 
     <div class="container">
         <img class="tree-image" src="images/shooting-star (3).png" alt="poison tree">
 
         <h1>Cpaz</h1>
-        <p>--Cpaz executor - Click at the Star logo to download the executor--</p>
+        <p>---Cpaz executor - Click at the Star logo to download the executor---</p>
 
         <img class="centered-image" src="images/cpazsc.png" alt="Centered Image">
 
