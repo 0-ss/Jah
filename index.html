@@ -89,27 +89,34 @@
             transform: scale(1.1);
         }
 
-     .container {
-    background: rgba(255, 255, 255, 0.1); /* Very light background to avoid darkness */
-    backdrop-filter: blur(15px); /* Adjust blur strength */
-    border-radius: 15px;
-    padding: 14px;
-    max-width: 599px;
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    transform: translateY(150px); /* Start off-screen */
-    opacity: 0;
-    }
+        .container {
+  background: rgba(255, 255, 255, 0.1); /* Very light background to avoid darkness */
+  backdrop-filter: blur(15px); /* Adjust blur strength */
+  border-radius: 15px;
+  padding: 14px;
+  max-width: 599px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: absolute; /* Use absolute positioning for 3D effect */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Offset the elements from center */
+  z-index: 1;
+  transition: transform 0.1s ease-out, box-shadow 0.3s ease-in-out;
+}
 
+.container:nth-child(odd) {
+  z-index: 1;
+}
 
+.container:nth-child(even) {
+  z-index: 2;
+}
         @keyframes containerLoad {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -263,26 +270,6 @@
             display: flex;
             gap: 20px; /* Increased space between buttons */
         }
-
-
-        #logout-button {
-    display: none; /* Initially hidden */
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 1px 2px;
-    font-size: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    z-index: 1000;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
 
 
 
@@ -471,35 +458,35 @@ function enterSite() {
     // Generate rain continuously
     setInterval(createRaindrop, 50);
 
-    // Stronger wind effect when moving the mouse
     document.addEventListener("mousemove", function (event) {
-        let mouseX = event.clientX;
-        let screenWidth = window.innerWidth;
+    let mouseX = event.clientX;
+    let screenWidth = window.innerWidth;
 
-        // Increase the wind shift
-        let direction = (mouseX - screenWidth / 2) / (screenWidth / 2);
-
-        // More dramatic effect
-        document.documentElement.style.setProperty("--wind-direction", direction * -50 + "px");
-    });
+    // Adjust wind direction based on mouse position (-20px to 20px shift)
+    let windShift = (mouseX - screenWidth / 2) / 20 + "px";
+    
+    document.documentElement.style.setProperty("--wind-direction", windShift);
+});
 });
 
-function logout() {
-        localStorage.removeItem('loggedInUser');
-        alert('You have been logged out.');
-        window.location.href = 'index.html'; // Redirect to login page
-    }
-    window.onload = createRain;
+document.addEventListener('mousemove', (e) => {
+  const containers = document.querySelectorAll('.container');
+  const mouseX = e.clientX / window.innerWidth - 0.5; // Normalize the X position
+  const mouseY = e.clientY / window.innerHeight - 0.5; // Normalize the Y position
 
-        // Redirect user to login page if not logged in
-        document.addEventListener('DOMContentLoaded', () => {
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (!loggedInUser) {
-            alert('You need to log in first!');
-            window.location.href = 'index.html'; // Change to your login page filename
-        }
-    });
-    </script>
+  containers.forEach((container, index) => {
+    // Increase depth for stronger movement
+    const depth = 100; // Larger depth for very strong movement
+
+    // Increase rotation for more dramatic effect
+    const rotateX = mouseY * depth * 0.60; // Multiply to make it stronger
+    const rotateY = mouseX * depth * 0.60; // Multiply to make it stronger
+
+    // Apply the transformation to each container
+    container.style.transform = `translate(-50%, -50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+});
+</script>
 
     <video autoplay loop muted playsinline id="bg-video">
         <source src="video/286ca23ca16fbe6892031a59cd00747a (online-video-cutter.com).mp4" type="video/mp4">
