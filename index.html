@@ -36,6 +36,22 @@
             z-index: -1;
         }
 
+.centered-image {
+    width: 580px; /* Adjust size as needed */
+    height: auto;
+    margin: 20px 0; /* Space above and below */
+    display: block;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Apply the same hover effect as .container */
+.centered-image:hover {
+    transform: scale(1.05);
+    border-radius: 5px; /* Adjust based on your container's border radius */
+}
+
+
+
         #overlay {
             position: fixed;
             top: 0;
@@ -77,8 +93,8 @@
     background: rgba(255, 255, 255, 0.1); /* Very light background to avoid darkness */
     backdrop-filter: blur(15px); /* Adjust blur strength */
     border-radius: 15px;
-    padding: 40px;
-    max-width: 400px;
+    padding: 14px;
+    max-width: 599px;
     width: 90%;
     margin: 0 auto;
     display: flex;
@@ -89,7 +105,7 @@
     position: relative;
     z-index: 1;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    transform: translateY(100px); /* Start off-screen */
+    transform: translateY(150px); /* Start off-screen */
     opacity: 0;
     }
 
@@ -101,7 +117,7 @@
 
         .container:hover {
             transform: scale(1.05); /* Slightly enlarges */
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 20px rgba(255, 208, 0, 0.877);
         }
 
         .container.show {
@@ -165,7 +181,7 @@
         }
 
         .staggered-button img {
-            width: 50px; /* Adjust image size */
+            width: 45px; /* Adjust image size */
             height: auto;
             transition: transform 0.2s ease; /* Smooth transition for hover */
         }
@@ -322,14 +338,16 @@
     </div>
 
     <div class="container">
-        <img class="tree-image" src="https://imgur.com/Jk6HHWN.jpeg" alt="poison tree">
+        <img class="tree-image" src="images/shooting-star (3).png" alt="poison tree">
 
-        <h1>SharkV3</h1>
-        <p>--SharkV3 executor - Click at the shark logo--</p>
+        <h1>Cpaz</h1>
+        <p>--Cpaz executor - Click at the Star logo to download the executor--</p>
+
+        <img class="centered-image" src="images/cpazsc.png" alt="Centered Image">
 
         <div class="staggered-buttons-container">
             <button id="button1" class="staggered-button" onclick="window.open('https://mega.nz/file/CbhmVDhC#iLDMHJnhkZCMjUDfuh87WtHq4bBUQlXQOWyblZfZwsM', '_blank')">
-                <img src="images/png-fierce-formidable-anime-shark-boy-with-sharp-teeth-creative-chibi-sticker-collection_1020495-340376.png" alt="Icon 1">
+                <img src="images/shooting-star.png" alt="Icon 1">
             </button>
             <button id="button2" class="staggered-button" onclick="window.open('https://www.youtube.com/@cu7z', '_blank')">
                 <img src="images/youtube logo (4).png" alt="Icon 2">
@@ -337,8 +355,8 @@
             <button id="button3" class="staggered-button" onclick="window.open('https://www.tiktok.com/@MS4wLjABAAAAJ7xmRRmoez12d5P7k5Q5ZrA5hOjy_4-D-Ln27uNY_padB6WrF292gLUqhsfGpvKO?i', '_blank')">
                 <img src="images/Social-media_Tiktok-512.png" alt="Icon 3">
             </button>
-            <button id="button4" class="staggered-button" onclick="window.open('https://link4.com', '_blank')">
-                <img src="https://imgur.com/t4Avm2c.jpeg" alt="Icon 4">
+            <button id="button4" class="staggered-button" onclick="window.open('https://discord.gg/MQXMey28', '_blank')">
+                <img src="images/undefined - Imgur.png" alt="Icon 4">
             </button>
         </div>        
         
